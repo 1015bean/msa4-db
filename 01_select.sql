@@ -200,7 +200,7 @@ FROM salaries
 ;
 
 -- GROUP BY절, HAVING절
-	-- GROUP BY절: 그룹으로 묶어서 조회
+	-- GROUP BY절: (이름이 중복되는 친구들을 한)그룹으로 묶어서 조회
 	-- HAVING절: "만든 그룹에서" 조건 검색(필터)
 	
 	-- 직책별 사원수
