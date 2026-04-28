@@ -17,7 +17,8 @@ SELECT
 	emp_id
 FROM salaries
 WHERE 
-	salary BETWEEN 60000000 AND 70000000
+	end_at IS NULL 
+	AND salary BETWEEN 60000000 AND 70000000
 ;
 
 -- 4. 사원번호가 10001, 10005인 사원의 사원테이블의 모든 정보를 조회해 주세요.
@@ -41,13 +42,13 @@ WHERE
 SELECT DISTINCT
 	`name`
 FROM employees
-ORDER BY `name` ASC 
+ORDER BY `name`   -- ASC 
 ;
 
 -- 7. 사원별 전체 급여의 평균을 조회해 주세요.
 SELECT
 	emp_id 
-	,AVG(salary)
+	,ceiling(AVG(salary)) avg_sal
 FROM salaries
 GROUP BY emp_id
 ;
@@ -56,42 +57,42 @@ GROUP BY emp_id
 --   사원번호와 평균급여를 조회해 주세요.
 SELECT 
 	emp_id
-	,AVG(salary)
+	,AVG(salary) avg_sal
 FROM salaries
 GROUP BY emp_id
-HAVING AVG(salary) BETWEEN 30000000 AND 50000000
+	HAVING AVG(salary) BETWEEN 30000000 AND 50000000
 ;
 
 -- 9. 사원별 전체 급여 평균이 70,000,000이상인,
 --   사원의 사번, 이름, 성별을 조회해 주세요.
 SELECT 
-	employees.emp_id
-	,employees.`name`
-	,employees.gender
-FROM employees
+	emp.emp_id
+	,emp.`name`
+	,emp.gender
+FROM employees emp
 WHERE 
-	employees.emp_id IN (
+	emp.emp_id IN (
 		SELECT 
-			emp_id
-		FROM salaries
-		GROUP BY salaries.emp_id
-		HAVING AVG(salaries.salary) >= 70000000
+			sal.emp_id
+		FROM salaries sal
+		GROUP BY sal.emp_id
+		HAVING AVG(sal.salary) >= 70000000
 	)
 ;
 
 -- 10. 현재 직급이 'T005'인,
 --   사원의 사원번호와 이름을 조회해 주세요.
 SELECT 
-	employees.emp_id
-	,employees.`name`
-FROM employees
+	emp.emp_id
+	,emp.`name`
+FROM employees emp
 WHERE
- 	employees.emp_id IN (
+ 	emp.emp_id IN (
 		SELECT
-			title_emps.emp_id
-		FROM title_emps
+			tit.emp_id
+		FROM title_emps tit
 		WHERE 
-			title_emps.title_code = 'T005'
-			AND title_emps.end_at IS NULL 
+			tit.title_code = 'T005'
+			AND tit.end_at IS NULL 
 	)
 ;
