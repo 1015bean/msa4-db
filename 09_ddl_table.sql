@@ -6,6 +6,8 @@ USE mydb;
 
 	-- UNSIGNED: 양수만 적용(데이터타입의 옵션)
 	-- '': 주석
+	-- CURRENT_TIMESTAMP(): 현재 시간을 반영,
+	                       -- 제약조건으로 설정시; now()와 달리 갱신할 떄마다 시간도 갱신됨
 CREATE TABLE users (
 	id				BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT 
 	,`name`  	VARCHAR(50) NOT NULL 
